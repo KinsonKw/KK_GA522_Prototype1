@@ -384,7 +384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11.730011, y: -4.699997}
+  m_AnchoredPosition: {x: -11.72998, y: -4.700012}
   m_SizeDelta: {x: 50, y: 20}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &948551027
@@ -695,13 +695,13 @@ MonoBehaviour:
   levels:
   - id: Level 1
     timer: 20
-    movesLeft: 20
-    row: 8
+    movesLeft: 10
+    row: 10
     col: 8
     boardFile: 
     goal:
-    - type: Clear Blue Jellies
-      counter: 0
+    - type: bean_blue
+      counter: 5
   selectLevel: 0
   timer: {fileID: 2123146494}
   moves: {fileID: 1566715791}

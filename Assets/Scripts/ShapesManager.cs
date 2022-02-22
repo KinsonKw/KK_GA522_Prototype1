@@ -17,7 +17,7 @@ public class ShapesManager : MonoBehaviour
     public TMP_Text moves;
     private int move = 20;
 
-
+    private Dictionary<string, int> goals = new Dictionary<string, int>();
     
 
     public Text DebugText, ScoreText;
@@ -47,6 +47,13 @@ public class ShapesManager : MonoBehaviour
     void Awake()
     {
         DebugText.enabled = ShowDebugInfo;
+
+        foreach(ShapeCounter goal in levels[selectLevel].goal)
+        {
+            goals.Add(goal.type, goal.counter);
+        }
+
+        Constants.SetDemensions(levels[selectLevel].row, levels[selectLevel].col);
     }
 
     // Use this for initialization
@@ -207,6 +214,7 @@ public class ShapesManager : MonoBehaviour
         }
         else
         {
+            Lose();
             timer.text = "0";
         }
 
@@ -338,6 +346,8 @@ public class ShapesManager : MonoBehaviour
 
             foreach (var item in totalMatches)
             {
+                JellyRemoved(item);
+
                 shapes.Remove(item);
                 RemoveFromScene(item);
             }
@@ -380,6 +390,46 @@ public class ShapesManager : MonoBehaviour
         StartCheckForPotentialMatches();
     }
 
+    private void JellyRemoved(GameObject jelly)
+    {
+        Shape shape = jelly.GetComponent<Shape>();
+
+        if(shape != null)
+        {
+            if (goals.ContainsKey(shape.Type))
+            {
+                // if our goal value is greater than 1 decrease it by 1.
+                // if our goal value is 1 then it's going to hit 0 so we'll remove it
+                if(goals[shape.Type] > 1)
+                {
+                    goals[shape.Type] -= 1;
+                }
+                else
+                {
+                    goals.Remove(shape.Type);
+                }
+                //lastly if all goals are finished then we've WON
+                if(goals.Count == 0)
+                {
+                    Won();
+                }
+
+            }
+        }
+    }
+
+    private void Won()
+    {
+        //Screen pop up and play agian
+        Debug.LogError("Won");
+
+    }
+
+    public void OnClickNextLevel()
+    {
+
+    }
+
     private void MoveHappen(int matches)
     {
         if (matches > 0)
@@ -392,10 +442,16 @@ public class ShapesManager : MonoBehaviour
             }
             else
             {
+                Lose();
                 moves.text = "0";
             }
         }
 
+    }
+
+    private void Lose()
+    {
+        Debug.LogError("Lose");
     }
 
     /// <summary>

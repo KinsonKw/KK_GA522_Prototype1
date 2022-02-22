@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ShapeCounter
 {
-    public string type;
-    public int counter;
+    public string type = "";
+    public int counter = 0;
 
 
 }
