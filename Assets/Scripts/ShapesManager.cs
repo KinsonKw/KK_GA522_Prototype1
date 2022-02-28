@@ -4,12 +4,12 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class ShapesManager : MonoBehaviour
 {
     public List<CustomLevel> levels = new List<CustomLevel>();
-    public int selectLevel;
+    public static int selectLevel;
 
     public TMP_Text timer;
     private float time = 30;
@@ -18,7 +18,12 @@ public class ShapesManager : MonoBehaviour
     private int move = 20;
 
     private Dictionary<string, int> goals = new Dictionary<string, int>();
-    
+
+    [SerializeField] private GameObject win = null;
+    [SerializeField] private GameObject lose = null;
+
+    private bool gameOver = false;
+    [SerializeField] private GoalsUI ui;
 
     public Text DebugText, ScoreText;
     public bool ShowDebugInfo = false;
@@ -48,9 +53,21 @@ public class ShapesManager : MonoBehaviour
     {
         DebugText.enabled = ShowDebugInfo;
 
+        if(win != null)
+        {
+            win?.SetActive(false);
+        }
+
+        if (lose != null)
+        {
+            lose?.SetActive(false);
+        }
+
         foreach(ShapeCounter goal in levels[selectLevel].goal)
         {
             goals.Add(goal.type, goal.counter);
+
+            ui.UIChange(goal.type, goal.counter);
         }
 
         Constants.SetDemensions(levels[selectLevel].row, levels[selectLevel].col);
@@ -207,6 +224,11 @@ public class ShapesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameOver)
+        {
+            return;
+        }
+
         time -= Time.deltaTime;
         if(time > 0)
         {
@@ -403,9 +425,11 @@ public class ShapesManager : MonoBehaviour
                 if(goals[shape.Type] > 1)
                 {
                     goals[shape.Type] -= 1;
+                    ui.UIChange(shape.Type, goals[shape.Type]);
                 }
                 else
                 {
+                    ui.UIChange(shape.Type, 0);
                     goals.Remove(shape.Type);
                 }
                 //lastly if all goals are finished then we've WON
@@ -421,13 +445,21 @@ public class ShapesManager : MonoBehaviour
     private void Won()
     {
         //Screen pop up and play agian
+        gameOver = true;
         Debug.LogError("Won");
-
+        win.SetActive(true);
     }
 
     public void OnClickNextLevel()
     {
+        selectLevel = (selectLevel + 1) % levels.Count;
+        SceneManager.LoadScene("mainGame");
+    }
 
+    public void LoseCondition()
+    {
+        selectLevel = 0;
+        SceneManager.LoadScene("mainGame");
     }
 
     private void MoveHappen(int matches)
@@ -451,6 +483,8 @@ public class ShapesManager : MonoBehaviour
 
     private void Lose()
     {
+        gameOver = true;
+        lose.SetActive(true);
         Debug.LogError("Lose");
     }
 
