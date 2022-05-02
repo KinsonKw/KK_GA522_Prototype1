@@ -43,6 +43,9 @@ public class ShapesManager : MonoBehaviour
     public GameObject[] ExplosionPrefabs;
     public GameObject[] BonusPrefabs;
 
+    public bool adjBomb;
+    public GameObject adjMarker;
+
     private IEnumerator CheckPotentialMatchesCoroutine;
     private IEnumerator AnimatePotentialMatchesCoroutine;
 
@@ -94,6 +97,7 @@ public class ShapesManager : MonoBehaviour
     /// </summary>
     private void InitializeTypesOnPrefabShapesAndBonuses()
     {
+        adjBomb = false;
         //just assign the name of the prefab
         foreach (var item in CandyPrefabs)
         {
@@ -504,6 +508,7 @@ public class ShapesManager : MonoBehaviour
         BonusShape.Assign(hitGoCache.Type, hitGoCache.Row, hitGoCache.Column);
         //add the proper Bonus type
         BonusShape.Bonus |= BonusType.DestroyWholeRowColumn;
+
     }
 
 
