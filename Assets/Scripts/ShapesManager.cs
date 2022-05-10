@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class ShapesManager : MonoBehaviour
 {
     public List<CustomLevel> levels = new List<CustomLevel>();
-    public static int selectLevel;
+    public int selectLevel = 0;
 
     public TMP_Text timer;
     private float time = 30;
@@ -55,6 +55,15 @@ public class ShapesManager : MonoBehaviour
     void Awake()
     {
         DebugText.enabled = ShowDebugInfo;
+
+        if(PlayerPrefs.HasKey("selectLevel"))
+        {
+            selectLevel = PlayerPrefs.GetInt("selectLevel");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("selectLevel", selectLevel);
+        }
 
         if(win != null)
         {
@@ -487,6 +496,7 @@ public class ShapesManager : MonoBehaviour
 
     private void Lose()
     {
+        PlayerPrefs.SetInt("selectLevel", 0);
         gameOver = true;
         lose.SetActive(true);
         Debug.LogError("Lose");

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MapPoint : MonoBehaviour
 {
@@ -10,10 +11,11 @@ public class MapPoint : MonoBehaviour
     public Button button = null;
 
     public int index = 0;
+
+    [SerializeField] private TMP_Text indexLabel = null;
     [SerializeField] private MapPointInfo info = null;
     [SerializeField] private MapController controller = null;
 
-    public List<MapPoint> connectedNodes = new List<MapPoint>();
 
     private void Start()
     {
@@ -27,6 +29,8 @@ public class MapPoint : MonoBehaviour
 
         category.sprite = catSprite;
         mode.sprite = modeSprite;
+
+        indexLabel.text = index.ToString();
     }
 
     public void OnClick()
@@ -41,9 +45,14 @@ public class MapPoint : MonoBehaviour
 
     public void ActivateConnectedNodes()
     {
-        for(int i = 0; i < connectedNodes.Count; i++)
+        for(int i = 0; i < info.connectedNodes.Count; i++)
         {
-            connectedNodes[i].SetInteractable(true);
+            controller.SetInteractable(info.connectedNodes[i], true);
         }
+    }
+
+    public void TurnOnIndex(bool enable)
+    {
+        indexLabel.gameObject.SetActive(enable);
     }
 }

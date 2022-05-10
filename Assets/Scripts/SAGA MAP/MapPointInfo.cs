@@ -12,4 +12,8 @@ public class MapPointInfo
     public LevelType type = LevelType.Moves;
     
     public LevelCategory category = LevelCategory.Regular;
+
+    public List<int> connectedNodes = new List<int>();
+
+    public int realLevelIndex = 0;
 }

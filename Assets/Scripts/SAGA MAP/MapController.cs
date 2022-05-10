@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapController : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class MapController : MonoBehaviour
     public MapPoint prefab = null;
 
     public Transform mapPointParent = null;
-    [SerializeField] private bool genOnStart = false;
 
     [Header("Mode Sprites")]
     public Sprite timerSprite = null;
@@ -27,14 +27,10 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(genOnStart)
-        {
-            GenerateMapPoint();
-        }
-
         foreach(MapPoint point in sagaPosition)
         {
             point.SetInteractable(false);
+            point.TurnOnIndex(false);
         }
 
         if(previousIndex >= 0 && previousIndex < sagaPosition.Count)
@@ -59,7 +55,7 @@ public class MapController : MonoBehaviour
     {
         foreach(MapPoint position in sagaPosition)
         {
-            Destroy(position.gameObject);
+            DestroyImmediate(position.gameObject);
         }
 
         sagaPosition.Clear();
@@ -70,6 +66,7 @@ public class MapController : MonoBehaviour
             point.transform.position = mapPoints[i].transform.position;
             point.SetData(i, this, GetCatSprite(mapPoints[i].category), GetModeSprite(mapPoints[i].type), mapPoints[i]);
             point.gameObject.SetActive(true);
+            point.name = point.name + "-" + i;
 
             sagaPosition.Add(point);
         }
@@ -107,11 +104,22 @@ public class MapController : MonoBehaviour
 
         return null;
     }
+
+    public void SetInteractable(int index, bool enable)
+    {
+        sagaPosition[index].SetInteractable(enable);
+    }
     public void OnClick(int index)
     {
         //load game puzzle scene based on selected point
         Debug.LogError("Puzzle: " + index);
+
+        //set playerpref for "selectlevel" equal
+        //to the reallevelindex of the clicked mapoint
+        if(mapPoints.Count > index)
+        {
+            PlayerPrefs.SetInt("selectLevel", mapPoints[index].realLevelIndex);
+            SceneManager.LoadScene("mainGame");
+        }
     }
-
-
 }
