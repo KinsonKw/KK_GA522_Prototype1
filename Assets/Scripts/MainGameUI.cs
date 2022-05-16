@@ -35,6 +35,7 @@ public class MainGameUI : MonoBehaviour
 
     public void OnClickBack()
     {
+        Debug.LogError("Click Back");
         panel.SetActive(false);
     }
 }

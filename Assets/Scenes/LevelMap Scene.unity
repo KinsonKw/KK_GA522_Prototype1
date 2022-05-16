@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1241,6 +1241,7 @@ MonoBehaviour:
     type: 2
     category: 0
     connectedNodes: 03000000
+    realLevelIndex: 2
   controller: {fileID: 1857571260}
 --- !u!114 &643875003
 MonoBehaviour:
@@ -1886,6 +1887,7 @@ MonoBehaviour:
     type: 0
     category: 1
     connectedNodes: 
+    realLevelIndex: 3
   controller: {fileID: 1857571260}
 --- !u!114 &877168707
 MonoBehaviour:
@@ -3103,6 +3105,7 @@ MonoBehaviour:
     type: 1
     category: 0
     connectedNodes: 
+    realLevelIndex: 0
   controller: {fileID: 0}
 --- !u!1 &1434937429
 GameObject:
@@ -3465,6 +3468,7 @@ MonoBehaviour:
     type: 1
     category: 0
     connectedNodes: 04000000
+    realLevelIndex: 1
   controller: {fileID: 1857571260}
 --- !u!114 &1646318692
 MonoBehaviour:
@@ -3624,6 +3628,7 @@ MonoBehaviour:
     type: 0
     category: 0
     connectedNodes: 0100000002000000
+    realLevelIndex: 0
   controller: {fileID: 1857571260}
 --- !u!114 &1649667509
 MonoBehaviour:
@@ -4084,6 +4089,7 @@ MonoBehaviour:
     type: 0
     category: 2
     connectedNodes: 
+    realLevelIndex: 4
   controller: {fileID: 1857571260}
 --- !u!114 &1773364741
 MonoBehaviour:
@@ -4334,22 +4340,27 @@ MonoBehaviour:
     type: 0
     category: 0
     connectedNodes: 0100000002000000
+    realLevelIndex: 0
   - transform: {fileID: 876938342}
     type: 1
     category: 0
     connectedNodes: 04000000
+    realLevelIndex: 1
   - transform: {fileID: 456251267}
     type: 2
     category: 0
     connectedNodes: 03000000
+    realLevelIndex: 2
   - transform: {fileID: 1849826456}
     type: 0
     category: 1
     connectedNodes: 
+    realLevelIndex: 3
   - transform: {fileID: 678723774}
     type: 0
     category: 2
     connectedNodes: 
+    realLevelIndex: 4
   sagaPosition:
   - {fileID: 1649667508}
   - {fileID: 1646318691}

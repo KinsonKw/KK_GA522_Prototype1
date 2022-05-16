@@ -44,6 +44,7 @@ public class ShapesManager : MonoBehaviour
     public GameObject[] BonusPrefabs;
 
     public bool adjBomb;
+    public bool paused;
     public GameObject adjMarker;
 
     private IEnumerator CheckPotentialMatchesCoroutine;
@@ -233,11 +234,19 @@ public class ShapesManager : MonoBehaviour
         }
     }
 
+    public void PauseTime()
+    {
+        paused = true;
+    }
 
+    public void UnPauseTime()
+    {
+        paused = false;
+    }
     // Update is called once per frame
     void Update()
     {
-        if(gameOver)
+        if(gameOver || paused)
         {
             return;
         }
@@ -461,18 +470,24 @@ public class ShapesManager : MonoBehaviour
         gameOver = true;
         Debug.LogError("Won");
         win.SetActive(true);
+        
     }
 
     public void OnClickNextLevel()
     {
-        selectLevel = (selectLevel + 1) % levels.Count;
-        SceneManager.LoadScene("mainGame");
+        //selectLevel = (selectLevel + 1) % levels.Count;
+        //SceneManager.LoadScene("mainGame");
+
+        PlayerPrefs.SetInt("previousLevel", selectLevel + 1);
+        SceneManager.LoadScene("LevelMap Scene");
     }
 
     public void LoseCondition()
     {
         selectLevel = 0;
-        SceneManager.LoadScene("mainGame");
+
+        PlayerPrefs.SetInt("previousLevel", -1);
+        SceneManager.LoadScene("LevelMap Scene");
     }
 
     private void MoveHappen(int matches)

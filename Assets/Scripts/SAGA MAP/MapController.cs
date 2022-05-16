@@ -27,6 +27,12 @@ public class MapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(PlayerPrefs.HasKey("previousLevel"))
+        {
+            previousIndex = PlayerPrefs.GetInt("previousLevel") - 1;
+        }
+        
+
         foreach(MapPoint point in sagaPosition)
         {
             point.SetInteractable(false);
