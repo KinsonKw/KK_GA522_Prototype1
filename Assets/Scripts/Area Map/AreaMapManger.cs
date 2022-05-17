@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class AreaMapManger : MonoBehaviour
 {
+    [SerializeField] private GameObject ok = null;
     [SerializeField] private GameObject mapButton = null;
 
     // Start is called before the first frame update
@@ -18,6 +19,11 @@ public class AreaMapManger : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnClick_Ok()
+    {
+        ok.SetActive(false);
     }
 
     public void OnClick_Play()
